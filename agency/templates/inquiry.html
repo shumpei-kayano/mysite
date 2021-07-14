@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Agency - お問い合わせ{% endblock %}
+
+{% block active_inquiry %}active{% endblock %}
+
+{% block contents %}
+        <!-- Contact-->
+        <section class="page-section" id="contact">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">お問い合わせ</h2>
+                    <h3 class="section-subheading text-muted">ご質問などはこちらからお願いします</h3>
+                </div>
+                <form id="contactForm" name="sentMessage" method="post">
+                    {% csrf_token %}
+
+                    {{ form.non_field_errors }}
+
+                    <div class="row align-items-stretch mb-5">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {% comment %} foems.pyで定義したformを取ってくる {% endcomment %}
+                                {{ form.name }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.email }}
+                            </div>
+                            <div class="form-group mb-md-0">
+                                {{ form.title }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-textarea mb-md-0">
+                                {{ form.message }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div id="success"></div>
+                        <button class="btn btn-primary btn-xl text-uppercase" id="sendMessageButton" type="submit">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+{% endblock %}

@@ -1,10 +1,36 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>トップページ</title>
-</head>
-<body>
-    <h1>Hello World<h1>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Agency - トップページ{% endblock %}
+
+{% block header %}
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container">
+                <div class="masthead-subheading">Welcome To Our Studio!</div>
+                <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
+                <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="{% url 'agency:services'%}">Tell Me More</a>
+            </div>
+        </header>
+{% endblock %}
+{% block contents %}
+        <!-- Clients-->
+        <div class="py-5">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-3 col-sm-6 my-3">
+                        <a href="https://www.microsoft.com/ja-jp"><img class="img-fluid img-brand d-block mx-auto" src="{% static 'assets/img/logos/microsoft.svg'%}" alt="..." /></a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 my-3">
+                        <a href="https://www.google.com/?hl=ja"><img class="img-fluid img-brand d-block mx-auto" src="{% static 'assets/img/logos/google.svg'%}" alt="..." /></a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 my-3">
+                        <a href="#https://ja-jp.facebook.com/"><img class="img-fluid img-brand d-block mx-auto" src="{% static 'assets/img/logos/facebook.svg'%}" alt="..." /></a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 my-3">
+                        <a href="https://www.ibm.com/jp-ja"><img class="img-fluid img-brand d-block mx-auto" src="{% static 'assets/img/logos/ibm.svg'%}" alt="..." /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock%}
