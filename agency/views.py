@@ -9,6 +9,7 @@ from django.shortcuts import render
 from django.views import generic
 # 問い合わせページInquiryFormの読み込み
 from.forms import InquiryForm
+from django.contrib import messages
 
 logger = logging.getLogger(__name__)
 
