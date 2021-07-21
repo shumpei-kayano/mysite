@@ -5,4 +5,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # agencyのurlsにルーティングを移譲している
     path('', include('agency.urls')),
+    path('accounts/',include('allauth.urls')),
 ]
