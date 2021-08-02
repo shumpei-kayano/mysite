@@ -1,5 +1,6 @@
 from django.views import generic
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 import logging
 
 from django.urls import reverse_lazy
@@ -9,6 +10,7 @@ from django.shortcuts import render
 from django.views import generic
 # 問い合わせページInquiryFormの読み込み
 from.forms import InquiryForm
+from .models import Diary
 from django.contrib import messages
 
 logger = logging.getLogger(__name__)
@@ -40,3 +42,12 @@ class PhotosView(generic.TemplateView):
 
 class AboutView(generic.TemplateView):
     template_name = "about.html"
+
+class DiaryListView(LoginRequiredMixin, generic.ListView):
+    model = Diary
+    template_name = 'diary_list.html'
+    paginate_by = 2
+
+    def get_queryset(self):
+        diaries = Diary.objects.filter(user=self.request.user).order_by('-created_at')
+        return diaries
