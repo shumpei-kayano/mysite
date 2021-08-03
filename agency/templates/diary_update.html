@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}日記編集 | Private Diary{% endblock %}
+{% block title %}投稿編集 | Kayano Studio{% endblock %}
 
 {% block active_diary_list %}active{% endblock %}
 
@@ -15,7 +15,7 @@
                     {{ form.as_table }}
                 </table>
                 <button class="btn btn-primary" type="submit">更新</button>
-                <a class="btn btn-secondary ml-2" href="{% url 'diary:diary_detail' object.pk %}">キャンセル</a>
+                <a class="btn btn-secondary ml-2" href="{% url 'agency:diary_detail' object.pk %}">キャンセル</a>
             </form>
         </div>
     </div>
