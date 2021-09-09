@@ -1,0 +1,52 @@
+@startuml agency
+    actor ユーザー as user
+    ' ユーザーとの境界線がバウンダリ htmlやformはUIなのでバウンダリ
+    boundary diary_create_html as d_create
+    boundary diaryCreateForm as dc_form
+    ' 制御がコントロール viewは司令塔なのでコントロール
+    control DiaryCreateView as dc_view
+    ' データベースやファイル関係がエンティティとなる
+    ' モデルはDBとの制御なのでエンティティで記述
+    entity request as req
+    entity Diary as diary
+    ' 今回は裏の制御でurl.pyも動いている 制御なのでコントロール
+    control urls.py as urls
+
+    ' ①urlの制御からルーティング
+    dc_view <- urls
+    ' ②viewに引き継ぎ、日記作成画面を表示する
+    d_create <- dc_form : ブログ作成画面を表示する
+    ' ③ユーザーはブログ内容を入力する
+    user -> dc_form : ブログ内容を入力する
+    ' ④ユーザーは作成ボタンをクリックする
+    user -> d_create : 「作成」ボタンをクリックする
+    ' ⑤タイトルが入力されているか検証する
+    d_create -> dc_form : 入力内容を検証する
+
+    alt タイトルが入力されていない
+        d_create <- dc_form :「このフィールドを入力してください」\nメッセージを表示する
+    else 入力内容に問題がない
+        ' DiaryCreateViewでform_validが実行される
+        dc_form -> dc_view : form_valid()
+        dc_view -> req : ログインしている\nユーザーを取得する
+        dc_view <-- req
+        dc_view -> diary : ブログの内容とユーザーを登録する
+        dc_view -> urls : diary_listページを表示する
+    else 入力内容に問題がある
+        dc_form -> dc_view : form_invalid()
+        d_create <- dc_view : 「投稿の作成に失敗しました」を表示する
+    end
+
+    alt 画像データが選択されていない
+        d_create <- dc_form :「画像をアップロードしてください。〜」\nメッセージを表示する
+    else 画像データが選択されている
+        dc_form -> dc_view : form_valid()
+        dc_view -> req : ログインしている\nユーザーを取得する
+        dc_view <-- req
+        dc_view -> diary : ブログの内容とユーザーを登録する
+        dc_view -> urls : diary_listページを表示する
+    else データに問題がある
+        dc_form -> dc_view : form_invalid()
+        d_create <- dc_view : 「投稿の作成に失敗しました」を表示する
+    end
+@enduml
